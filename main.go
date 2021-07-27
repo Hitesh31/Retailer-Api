@@ -1,11 +1,10 @@
 package main
 
 import (
+	"first-api/Config"
+	"first-api/Models"
+	"first-api/Routes"
 	"fmt"
-
-	"retailer-api/Config"
-	"retailer-api/Models"
-
 	"github.com/jinzhu/gorm"
 )
 
@@ -21,7 +20,7 @@ func main() {
 	defer Config.DB.Close()
 	Config.DB.AutoMigrate(&Models.Product{})
 	Config.DB.AutoMigrate(&Models.OrderTrack{})
-	//r := Routes.SetupRouter()
+	r := Routes.SetupRouter()
 	//running
-	//r.Run()
+	r.Run()
 }
