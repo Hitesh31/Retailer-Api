@@ -1,4 +1,9 @@
 package Models
+
+import "sync"
+
+var Mutex sync.Mutex
+
 type Product struct {
 	Id   string   `json:"id"`
 	ProductName string `json:"product_name"`
@@ -6,9 +11,9 @@ type Product struct {
 	Price       uint `json:"price"`
 }
 type OrderTrack struct {
-	CustomerId string `json:"customer_id",gorm:"foreignKey"`
-	ProductId string `json:"product_id"`
 	Id string `json:"id"`
+	CustomerId string `json:"customer_id",gorm:"foreignKey:CustomerRefer"`
+	ProductId string `json:"product_id",gorm:"foreignKey:ProductRefer"`
 	Quantity uint `json:"quantity"`
 	Bill uint `json:"bill"`
 }
@@ -16,6 +21,7 @@ type OrderTrack struct {
 type Customer struct {
 	CustomerName string `json:"customer_name"`
 	Id string `json:"id"`
+	OrderStatus bool `json:"order_status"`
 	Phone string `json:"phone"`
 }
 func (b *Product) TableName() string {
